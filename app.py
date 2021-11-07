@@ -57,7 +57,8 @@ url = st.text_input('Your hotel url : ','https://www.tripadvisor.in/Hotel_Review
 
 if url != '':
     # Load models
-    transformer = SentenceTransformer("models/bert-base-nli-mean-tokens")
+    #transformer = SentenceTransformer("models/bert-base-nli-mean-tokens")
+    transformer = SentenceTransformer("sentence-transformers/bert-base-nli-mean-tokens")
     polarity_classifier = load_sklearn_polarity_classifier(file='models/polarity_classifier_sklearn_imdb.sav')
 
 
