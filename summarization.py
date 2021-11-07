@@ -1,6 +1,3 @@
-import warnings
-warnings.simplefilter("ignore")
-
 import numpy as np
 from sklearn.cluster import KMeans
 from nltk.tokenize import sent_tokenize

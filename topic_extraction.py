@@ -1,26 +1,17 @@
 import pandas as pd
-import numpy as np
 import pickle
 import math
-import nltk
 from nltk.corpus import stopwords
-from nltk.corpus import wordnet
-from nltk.tokenize import word_tokenize, sent_tokenize
-from nltk.stem.wordnet import WordNetLemmatizer 
 from nltk import FreqDist
 
-import re
 import spacy
 
 import gensim
 from gensim import corpora
 
 # libraries for visualization
-import pyLDAvis
-import pyLDAvis.gensim
 import matplotlib.pyplot as plt
 import seaborn as sns
-from pprint import pprint
 
 #nltk.download('stopwords')
 

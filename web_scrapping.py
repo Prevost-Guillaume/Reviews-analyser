@@ -1,11 +1,8 @@
 import requests
 from requests_html import HTMLSession
-from bs4 import BeautifulSoup as soup
 import codecs
 from scrapy.selector import Selector
 import streamlit as st
-
-import re
 
 
 def get_next_page(html, base_url):
