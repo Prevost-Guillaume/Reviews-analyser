@@ -15,19 +15,6 @@ from sklearn.metrics import accuracy_score
 from sklearn.preprocessing import StandardScaler
 from sklearn.pipeline import make_pipeline
 
-from keras.models import Sequential
-from keras.callbacks import ModelCheckpoint
-from keras.models import Sequential
-from keras.layers import Dense, Activation, Flatten
-from keras.layers import Dropout, BatchNormalization
-
-from keras.layers import Dense
-from keras.models import load_model
-from keras.models import Model
-from keras.layers import Input, concatenate
-from keras.regularizers import l2
-
-from keras.wrappers.scikit_learn import KerasClassifier
 import time
 
 #####################################################################################################################################
@@ -114,15 +101,6 @@ def load_data_imdb():
 #                                                                                                                                   #
 #####################################################################################################################################
 
-def create_keras_model(layer1_units=64, layer2_units=64, dropout_rate=0, l2_regularization=0):
-    model = Sequential()
-    model.add(Dense(units=layer1_units, activation='relu', input_dim=768))
-    model.add(Dense(units=layer2_units, activation='relu', kernel_regularizer=l2(l2_regularization)))
-    model.add(Dropout(rate=dropout_rate))
-    model.add(Dense(units=2, activation='sigmoid'))
-    model.compile(optimizer='adam', loss='binary_crossentropy', metrics=['accuracy'])
-
-    return model
 
 
 def trainClassifier_sklearn(transformer, fileout='polarity_classifier.sav'):
@@ -148,42 +126,6 @@ def trainClassifier_sklearn(transformer, fileout='polarity_classifier.sav'):
 
 
  
-
-def trainClassifier_keras(transformer, fileout='polarity_classifier.sav'):
-    X_train, X_test, y_train, y_test = pickle.load(open('Xy_classifier_imdb.p', 'rb'))
-    y_train = np.array([[y==0, y==1] for y in list(y_train)])
-    y_test = np.array([[y==0, y==1] for y in list(y_test)])
-    
-    
-    # create classifier pipeline
-    classifier_keras = KerasClassifier(
-        create_keras_model, 
-        batch_size=32, 
-        layer1_units=128,
-        layer2_units=32,
-        dropout_rate=0.4,
-        l2_regularization=1e-5,
-        epochs=40, 
-        verbose=False)
-    
-    classifier = make_pipeline(StandardScaler(),classifier_keras)
-
-
-    # Train and save classifier
-    classifier.fit(X_train, y_train)
-
-    #print('save model')
-    #pickle.dump(classifier, open(fileout, 'wb'))
-
-
-    # Evaluate classifier
-    y_pred = classifier.predict(X_test)
-    print('score train : ',classifier.score(X_train, y_train))
-    print('score test : ',classifier.score(X_test, y_test))
-
-    return classifier
-    
-
 
 
     
